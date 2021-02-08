@@ -6003,37 +6003,35 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\joelb\\.nuget\\packages\\": {}
+    "/Users/matthewdemonaco/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\joelb\\Desktop\\revatureBatchDox\\P3\\P3_OutOfThePark\\MessageService\\MessageService\\MessageService.csproj",
+      "projectUniqueName": "/Users/matthewdemonaco/Documents/GitHub/MessageService/MessageService/MessageService.csproj",
       "projectName": "MessageService",
-      "projectPath": "C:\\Users\\joelb\\Desktop\\revatureBatchDox\\P3\\P3_OutOfThePark\\MessageService\\MessageService\\MessageService.csproj",
-      "packagesPath": "C:\\Users\\joelb\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\joelb\\Desktop\\revatureBatchDox\\P3\\P3_OutOfThePark\\MessageService\\MessageService\\obj\\",
+      "projectPath": "/Users/matthewdemonaco/Documents/GitHub/MessageService/MessageService/MessageService.csproj",
+      "packagesPath": "/Users/matthewdemonaco/.nuget/packages/",
+      "outputPath": "/Users/matthewdemonaco/Documents/GitHub/MessageService/MessageService/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\joelb\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/matthewdemonaco/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\joelb\\Desktop\\revatureBatchDox\\P3\\P3_OutOfThePark\\MessageService\\Logic\\Service.csproj": {
-              "projectPath": "C:\\Users\\joelb\\Desktop\\revatureBatchDox\\P3\\P3_OutOfThePark\\MessageService\\Logic\\Service.csproj"
+            "/Users/matthewdemonaco/Documents/GitHub/MessageService/Logic/Service.csproj": {
+              "projectPath": "/Users/matthewdemonaco/Documents/GitHub/MessageService/Logic/Service.csproj"
             },
-            "C:\\Users\\joelb\\Desktop\\revatureBatchDox\\P3\\P3_OutOfThePark\\MessageService\\Models\\Model.csproj": {
-              "projectPath": "C:\\Users\\joelb\\Desktop\\revatureBatchDox\\P3\\P3_OutOfThePark\\MessageService\\Models\\Model.csproj"
+            "/Users/matthewdemonaco/Documents/GitHub/MessageService/Models/Model.csproj": {
+              "projectPath": "/Users/matthewdemonaco/Documents/GitHub/MessageService/Models/Model.csproj"
             }
           }
         }
@@ -6091,7 +6089,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.101/RuntimeIdentifierGraph.json"
       }
     }
   }
