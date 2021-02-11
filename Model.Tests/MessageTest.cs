@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Xunit;
+using Models;
 
 namespace Model.Tests
 {
@@ -25,6 +26,7 @@ namespace Model.Tests
         /// <summary>
         /// Makes sure Message Model works with valid data
         /// </summary>
+        /// 
         [Fact]
         public void ValidateMessage()
         {
@@ -34,7 +36,7 @@ namespace Model.Tests
                 SenderID = Guid.NewGuid(),
                 RecipientListID = Guid.NewGuid(),
                 SentDate = DateTime.Now,
-                MessageText = "Yall ready for this?"
+                MessageText = "This is a test message"
             };
 
             var results = ValidateModel(message);
