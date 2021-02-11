@@ -33,7 +33,11 @@ namespace Service
         {
             return await _repo.GetMessageById(id);
         }
-
+        /// <summary>
+        /// returns a list of Messages that have the senderId 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IEnumerable<Message>> GetMessagesBySenderById(Guid id)
         {
             return await _repo.GetMessagesBySenderById(id);
@@ -104,16 +108,33 @@ namespace Service
             await _repo.CommitSave();
             return newMessage;
         }
+        /// <summary>
+        /// returns a list of all messagees that have the recipientListID parameter.
+        /// </summary>
+        /// <param name="recipientListID"></param>
+        /// <returns></returns>
         public async Task<IEnumerable<Message>> GetMessagePool(Guid recipientListID)
         {
             List<Message> messagePool = await _repo.Messages.Where(x => x.RecipientListID == recipientListID).ToListAsync();
             return messagePool;
         }
+        /// <summary>
+        /// calls the mapperClass BuildMessage() to build a new message, calls sendMessage()
+        /// to save the message and the recipient list to the database.
+        /// </summary>
+        /// <param name="carpoolDto"></param>
+        /// <returns></returns>
         public async Task<Message> SendCarpool(CarpoolingDto carpoolDto)
         {
             Message message = _mapper.BuildMessage(carpoolDto);
             return await SendMessage(message);
         }
+        /// <summary>
+        /// calls the mapperClass BuildMessage() to build a new message, calls sendMessage()
+        /// to save the message and the recipient list to the database.
+        /// </summary>
+        /// <param name="replyDto"></param>
+        /// <returns></returns>
         public async Task<Message> SendReply(ReplyDto replyDto)
         {
             Message message = _mapper.BuildMessage(replyDto);

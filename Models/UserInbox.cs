@@ -12,7 +12,7 @@ namespace Models
     {
         [DisplayName("User ID")]
         [ForeignKey("UserID")]
-        public Guid UserID { get; set; }
+        public string UserID { get; set; }
         [DisplayName("Message ID")]
         [ForeignKey("MessageID")]
         public Guid MessageID { get; set; }
