@@ -23,7 +23,7 @@ namespace Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RecipientList",
+                name: "RecipientLists",
                 columns: table => new
                 {
                     RecipientListID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -31,11 +31,11 @@ namespace Repository.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RecipientList", x => new { x.RecipientListID, x.RecipientID });
+                    table.PrimaryKey("PK_RecipientLists", x => new { x.RecipientListID, x.RecipientID });
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserInbox",
+                name: "UserInboxes",
                 columns: table => new
                 {
                     UserID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -44,7 +44,7 @@ namespace Repository.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserInbox", x => new { x.UserID, x.MessageID });
+                    table.PrimaryKey("PK_UserInboxes", x => new { x.UserID, x.MessageID });
                 });
         }
 
@@ -54,10 +54,10 @@ namespace Repository.Migrations
                 name: "Messages");
 
             migrationBuilder.DropTable(
-                name: "RecipientList");
+                name: "RecipientLists");
 
             migrationBuilder.DropTable(
-                name: "UserInbox");
+                name: "UserInboxes");
         }
     }
 }

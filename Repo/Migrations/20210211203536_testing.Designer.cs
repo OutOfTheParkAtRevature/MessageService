@@ -10,7 +10,7 @@ using Repository;
 namespace Repository.Migrations
 {
     [DbContext(typeof(MessageContext))]
-    [Migration("20210210053756_testing")]
+    [Migration("20210211203536_testing")]
     partial class testing
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,7 +54,7 @@ namespace Repository.Migrations
 
                     b.HasKey("RecipientListID", "RecipientID");
 
-                    b.ToTable("RecipientList");
+                    b.ToTable("RecipientLists");
                 });
 
             modelBuilder.Entity("Models.UserInbox", b =>
@@ -70,7 +70,7 @@ namespace Repository.Migrations
 
                     b.HasKey("UserID", "MessageID");
 
-                    b.ToTable("UserInbox");
+                    b.ToTable("UserInboxes");
                 });
 #pragma warning restore 612, 618
         }

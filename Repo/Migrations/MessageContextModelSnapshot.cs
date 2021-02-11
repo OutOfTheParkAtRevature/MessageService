@@ -52,7 +52,7 @@ namespace Repository.Migrations
 
                     b.HasKey("RecipientListID", "RecipientID");
 
-                    b.ToTable("RecipientList");
+                    b.ToTable("RecipientLists");
                 });
 
             modelBuilder.Entity("Models.UserInbox", b =>
@@ -68,7 +68,7 @@ namespace Repository.Migrations
 
                     b.HasKey("UserID", "MessageID");
 
-                    b.ToTable("UserInbox");
+                    b.ToTable("UserInboxes");
                 });
 #pragma warning restore 612, 618
         }

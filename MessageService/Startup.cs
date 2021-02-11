@@ -46,7 +46,6 @@ namespace MessageService
             });
 
             //services.AddDbContext<MessageContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LocalDB")));
-            services.AddScoped<MessageContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

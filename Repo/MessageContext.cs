@@ -6,8 +6,8 @@ namespace Repository
     public class MessageContext : DbContext
     {
         public DbSet<Message> Messages { get; set; }
-        public DbSet<RecipientList> RecipientLists;
-        public DbSet<UserInbox> UserInboxes;
+        public DbSet<RecipientList> RecipientLists { get; set; }
+        public DbSet<UserInbox> UserInboxes { get; set; }
 
         public MessageContext() { }
         public MessageContext(DbContextOptions<MessageContext> options) : base(options) { }

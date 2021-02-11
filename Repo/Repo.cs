@@ -16,6 +16,7 @@ namespace Repository
         public DbSet<RecipientList> RecipientLists;
         public DbSet<UserInbox> UserInboxes;
 
+        public Repo() { }
         public Repo(MessageContext messageContext, ILogger<Repo> logger)
         {
             _messageContext = messageContext;
