@@ -40,7 +40,7 @@ namespace MessageService.Controllers
         }
 
         [HttpGet("Sender/{id}")]
-        public async Task<IEnumerable<Message>> GetMessagesBySenderById(Guid id)
+        public async Task<IEnumerable<Message>> GetMessagesBySenderById(string id)
         {
             return await _logic.GetMessagesBySenderById(id);
         }
@@ -105,7 +105,7 @@ namespace MessageService.Controllers
         }
 
         [HttpGet("Inboxes/{id}")]
-        public async Task<IEnumerable<UserInbox>> GetUserInboxes(Guid id)
+        public async Task<IEnumerable<UserInbox>> GetUserInboxes(string id)
         {
             return await _logic.GetUserInbox(id);
         }

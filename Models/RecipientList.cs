@@ -15,6 +15,6 @@ namespace Models
         public Guid RecipientListID { get; set; }
         [DisplayName("Recipient ID")]
         [ForeignKey("UserID")]
-        public Guid RecipientID { get; set; }
+        public string RecipientID { get; set; }
     }
 }

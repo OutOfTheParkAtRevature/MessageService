@@ -56,7 +56,7 @@ namespace Repository
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<UserInbox>> GetUserInbox(Guid id)
+        public async Task<IEnumerable<UserInbox>> GetUserInbox(string id)
         {
             return await UserInboxes.Where(x => x.UserID == id).ToListAsync();
         }
@@ -65,7 +65,7 @@ namespace Repository
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<Message>> GetMessagesBySenderById(Guid id)
+        public async Task<IEnumerable<Message>> GetMessagesBySenderById(string id)
         {
             return await Messages.Where(x => x.SenderID == id).ToListAsync();
         }

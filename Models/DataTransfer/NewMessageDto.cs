@@ -10,9 +10,9 @@ namespace Models.DataTransfer
     public class NewMessageDto
     {
         [DisplayName("Sender ID")]
-        public Guid SenderID { get; set; }
+        public string SenderID { get; set; }
         [DisplayName("Recipient List ID")]
-        public List<Guid> RecipientList { get; set; }
+        public List<string> RecipientList { get; set; }
         [DisplayName("Message Text")]
         public string MessageText { get; set; }
     }

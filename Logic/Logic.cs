@@ -40,7 +40,7 @@ namespace Service
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<Message>> GetMessagesBySenderById(Guid id)
+        public async Task<IEnumerable<Message>> GetMessagesBySenderById(string id)
         {
             return await _repo.GetMessagesBySenderById(id);
         }
@@ -76,7 +76,7 @@ namespace Service
         /// <param name="listId">RecipientListID</param>
         /// <param name="recId">RecipientID</param>
         /// <returns>RecipientList</returns>
-        public async Task<RecipientList> BuildRecipientList(Guid listId, Guid recId)
+        public async Task<RecipientList> BuildRecipientList(Guid listId, string recId)
         {
             RecipientList rL = new RecipientList()
             {
@@ -102,7 +102,7 @@ namespace Service
                 MessageText = newMessageDto.MessageText,
                 SentDate = DateTime.Now
             };
-            foreach (Guid id in newMessageDto.RecipientList)
+            foreach (string id in newMessageDto.RecipientList)
             {
                 await BuildRecipientList(newMessage.RecipientListID, id);
             }
@@ -150,12 +150,12 @@ namespace Service
         public async Task<Message> SendMessage(Message message)
         {
             var recList = await _repo.RecipientLists.Where(x => x.RecipientListID == message.RecipientListID).ToListAsync();
-            List<Guid> listOfRecipients = new List<Guid>();
+            List<string> listOfRecipients = new List<string>();
             foreach (RecipientList r in recList)
             {
                 listOfRecipients.Add(r.RecipientID);
             }
-            foreach (Guid r in listOfRecipients)
+            foreach (string r in listOfRecipients)
             {
                 await CreateUserInbox(r, message.MessageID);
             }
@@ -168,7 +168,7 @@ namespace Service
         /// </summary>
         /// <param name="userId">UserID</param>
         /// <returns>UserInbox</returns>
-        public async Task<IEnumerable<UserInbox>> GetUserInbox(Guid userId)
+        public async Task<IEnumerable<UserInbox>> GetUserInbox(string userId)
         {
             return await _repo.GetUserInbox(userId);
         }
@@ -178,7 +178,7 @@ namespace Service
         /// <param name="userId">UserID</param>
         /// <param name="messageId">MessageID</param>
         /// <returns>UserInbox</returns>
-        public async Task<UserInbox> CreateUserInbox(Guid userId, Guid messageId)
+        public async Task<UserInbox> CreateUserInbox(string userId, Guid messageId)
         {
             UserInbox uI = new UserInbox()
             {
@@ -196,7 +196,7 @@ namespace Service
         /// <param name="userId">UserID</param>
         /// <param name="messageId">MessageID</param>
         /// <returns></returns>
-        public async Task DeleteMessageFromInbox(Guid userId, Guid messageId)
+        public async Task DeleteMessageFromInbox(string userId, Guid messageId)
         {
             foreach (UserInbox u in _repo.UserInboxes)
             {
