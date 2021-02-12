@@ -36,7 +36,7 @@ namespace Service
         {
             Message replyMessage = new Message()
             {
-                RecipientListID = replyDto.RecipientListID,
+                RecipientListID = Guid.Parse(replyDto.RecipientListID),
                 SenderID = replyDto.SenderID,
                 MessageText = replyDto.MessageText,
                 MessageID = Guid.NewGuid(),

@@ -33,6 +33,9 @@ namespace MessageService
             services.AddScoped<Logic>();
             services.AddScoped<Mapper>();
             services.AddScoped<Repo>();
+            services.AddDbContext<MessageContext>(
+               opt => opt.UseInMemoryDatabase("p3MessageService")
+           );
 
             var emailConfig = Configuration.GetSection("EmailConfiguration")
                 .Get<EmailConfiguration>();
