@@ -10,6 +10,11 @@ namespace Service
 {
     public class Mapper
     {
+        /// <summary>
+        /// takes in a CarpoolingDto parameter and creates a Message. returns the new Message
+        /// </summary>
+        /// <param name="carpoolDto"></param>
+        /// <returns></returns>
         public Message BuildMessage(CarpoolingDto carpoolDto)
         {
             Message carpoolMessage = new Message()
@@ -22,6 +27,11 @@ namespace Service
             };
             return carpoolMessage;
         }
+        /// <summary>
+        /// takes in a ReplyDto as a parameter and creates and new Message. returns the new message.
+        /// </summary>
+        /// <param name="replyDto"></param>
+        /// <returns></returns>
         public Message BuildMessage(ReplyDto replyDto)
         {
             Message replyMessage = new Message()
