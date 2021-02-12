@@ -13,6 +13,11 @@ namespace Service
 {
     public class Logic
     {
+        private readonly Repo _repo;
+        private readonly Mapper _mapper;
+        private readonly ILogger<Repo> _logger;
+
+
         public Logic() { }
         public Logic(Repo repo, Mapper mapper, ILogger<Repo> logger)
         {
@@ -20,9 +25,6 @@ namespace Service
             _mapper = mapper;
             _logger = logger;
         }
-        private readonly Repo _repo;
-        private readonly Mapper _mapper;
-        private readonly ILogger<Repo> _logger;
 
         /// <summary>
         /// Get Message by MessageID

@@ -33,13 +33,19 @@ namespace MessageService
             services.AddScoped<Logic>();
             services.AddScoped<Mapper>();
             services.AddScoped<Repo>();
+
+            var emailConfig = Configuration.GetSection("EmailConfiguration")
+                .Get<EmailConfiguration>();
+            services.AddSingleton(emailConfig);
+            services.AddScoped<IEmailSender, EmailSender>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MessageService", Version = "v1" });
             });
 
-            services.AddDbContext<MessageContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LocalDB")));
+            //services.AddDbContext<MessageContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LocalDB")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
