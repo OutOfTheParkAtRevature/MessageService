@@ -87,6 +87,17 @@ namespace Service
             await _repo.CommitSave();
             return rL;
         }
+        public async Task<RecipientList> BuildRecipientList(RecipientList rLD)
+        {
+            RecipientList rL = new RecipientList()
+            {
+                RecipientListID = rLD.RecipientListID,
+                RecipientID = rLD.RecipientID
+            };
+            await _repo.RecipientLists.AddAsync(rL);
+            await _repo.CommitSave();
+            return rL;
+        }
         /// <summary>
         /// Create a new Message
         /// </summary>
