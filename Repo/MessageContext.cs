@@ -12,14 +12,6 @@ namespace Repository
         public MessageContext() { }
         public MessageContext(DbContextOptions<MessageContext> options) : base(options) { }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-        {
-            if (!options.IsConfigured)
-            {
-                options.UseSqlServer("Server=LocalHost\\SQLEXPRESS01;Database=MessageService;Trusted_Connection=True;");
-            }
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UserInbox>()
