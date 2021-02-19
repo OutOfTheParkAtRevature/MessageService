@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Model.DataTransfer;
 using Models;
 using Models.DataTransfer;
 using Service;
@@ -91,6 +92,13 @@ namespace MessageService.Controllers
             }
             return sent;
         }
+
+        [HttpPost("RecipientLists/create")]
+        public async Task<ActionResult<RecipientList>> CreateRecipientList([FromBody] CreateCarpoolDto createCarpool)
+        {
+            return Ok(await _logic.BuildRecipientList(createCarpool.CarpoolID, createCarpool.UserID));
+        }
+
 
         [HttpGet("RecipientLists")]
         public async Task<IEnumerable<RecipientList>> GetRecipientLists()
