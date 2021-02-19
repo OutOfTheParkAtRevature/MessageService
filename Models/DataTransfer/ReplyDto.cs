@@ -12,7 +12,7 @@ namespace Models.DataTransfer
         [DisplayName("Sender ID")]
         public string SenderID { get; set; }
         [DisplayName("Recipient List ID")]
-        public string RecipientListID { get; set; }
+        public Guid RecipientListID { get; set; }
         [DisplayName("Message Text")]
         public string MessageText { get; set; }
     }
