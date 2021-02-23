@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using Model.DataTransfer;
 using Models;
 using Models.DataTransfer;
 using Service;
@@ -92,6 +91,13 @@ namespace MessageService.Controllers
             return sent;
         }
 
+        [HttpPost("RecipientLists/create")]
+        public async Task<ActionResult<RecipientList>> CreateRecipientList([FromBody] CreateCarpoolDto createCarpool)
+        {
+            return Ok(await _logic.BuildRecipientList(createCarpool.CarpoolID, createCarpool.UserID));
+        }
+
+
         [HttpGet("RecipientLists")]
         public async Task<IEnumerable<RecipientList>> GetRecipientLists()
         {
@@ -113,9 +119,8 @@ namespace MessageService.Controllers
         [HttpPost]
         [Route("SendEmail")]
         //[Authorize]
-        public async Task<ActionResult> SendEmailToUser()
+        public async Task<ActionResult> SendEmailToUser(EmailMessage message)
         {
-            var message = new EmailMessage(new string[] { "dgmdragon@gmail.com", "daniel.geisermagallanes@revature.net" }, "test email async", "This is the content from our email.");
             await _emailSender.SendEmailAsync(message);
             return Ok();
         }
@@ -123,11 +128,11 @@ namespace MessageService.Controllers
 
         [HttpPost]
         //[Authorize]
-        public async Task<ActionResult> SendEmailToUserWithAttachment()
+        public async Task<ActionResult> SendEmailToUserWithAttachment(EmailMessage eMessage)
         {
             var files = Request.Form.Files.Any() ? Request.Form.Files : new FormFileCollection();
 
-            var message = new EmailMessage(new string[] { "codemazetest@mailinator.com" }, "Test mail with Attachments", "This is the content from our mail with attachments.", files);
+            var message = new EmailMessage(new string[] { eMessage.To.ToString() }, eMessage.Subject, eMessage.Content, files);
             await _emailSender.SendEmailAsync(message);
             return Ok();
 

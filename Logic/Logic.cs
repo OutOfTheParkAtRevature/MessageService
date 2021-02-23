@@ -3,7 +3,6 @@ using Microsoft.Extensions.Logging;
 using Models;
 using Models.DataTransfer;
 using Repository;
-using Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -82,6 +81,17 @@ namespace Service
             {
                 RecipientListID = listId,
                 RecipientID = recId
+            };
+            await _repo.RecipientLists.AddAsync(rL);
+            await _repo.CommitSave();
+            return rL;
+        }
+        public async Task<RecipientList> BuildRecipientList(RecipientList rLD)
+        {
+            RecipientList rL = new RecipientList()
+            {
+                RecipientListID = rLD.RecipientListID,
+                RecipientID = rLD.RecipientID
             };
             await _repo.RecipientLists.AddAsync(rL);
             await _repo.CommitSave();

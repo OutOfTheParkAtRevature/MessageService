@@ -1,10 +1,6 @@
 ﻿using Models;
 using Models.DataTransfer;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Service
 {
@@ -36,7 +32,7 @@ namespace Service
         {
             Message replyMessage = new Message()
             {
-                RecipientListID = new Guid(replyDto.RecipientListID),
+                RecipientListID = replyDto.RecipientListID,
                 SenderID = replyDto.SenderID,
                 MessageText = replyDto.MessageText,
                 MessageID = Guid.NewGuid(),
