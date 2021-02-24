@@ -1,3 +1,10 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.Abstractions;
+using Models;
+using Models.DataTransfer;
+using Repository;
+using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Service.Tests
@@ -7,7 +14,7 @@ namespace Service.Tests
         [Fact]
         public async void TestGetMessageById()
         {
-            var options = new DbContextOptionsBuilder<LeagueContext>()
+            var options = new DbContextOptionsBuilder<MessageContext>()
             .UseInMemoryDatabase(databaseName: "p3MessageService")
             .Options;
 
@@ -17,7 +24,10 @@ namespace Service.Tests
                 context.Database.EnsureCreated();
 
                 Repo r = new Repo(context, new NullLogger<Repo>());
-                Logic logic = new Logic(r, new NullLogger<Repo>());
+                Mapper map = new Mapper();
+                Logic logic = new Logic(r, map, new NullLogger<Repo>());
+
+
                 var message = new Message
                 {
                     MessageID = Guid.NewGuid(),
@@ -40,7 +50,7 @@ namespace Service.Tests
         [Fact]
         public async void TestGetMessagesBySenderById()
         {
-            var options = new DbContextOptionsBuilder<LeagueContext>()
+            var options = new DbContextOptionsBuilder<MessageContext>()
             .UseInMemoryDatabase(databaseName: "p3MessageService")
             .Options;
 
@@ -50,7 +60,8 @@ namespace Service.Tests
                 context.Database.EnsureCreated();
 
                 Repo r = new Repo(context, new NullLogger<Repo>());
-                Logic logic = new Logic(r, new NullLogger<Repo>());
+                Mapper map = new Mapper();
+                Logic logic = new Logic(r, map, new NullLogger<Repo>());
                 var message = new Message
                 {
                     MessageID = Guid.NewGuid(),
@@ -63,8 +74,8 @@ namespace Service.Tests
                 r.Messages.Add(message);
                 await r.CommitSave();
 
-                var getMessageById = await logic.GetMessageById(message.SenderID);
-                Assert.Equal("Hello this is a text!!", getMessageById.MessageText);
+                var getMessageById = await logic.GetMessagesBySenderById(message.SenderID);
+                Assert.NotNull(getMessageById);
 
             }
         }
@@ -73,7 +84,7 @@ namespace Service.Tests
         [Fact]
         public async void TestGetMessages()
         {
-            var options = new DbContextOptionsBuilder<LeagueContext>()
+            var options = new DbContextOptionsBuilder<MessageContext>()
             .UseInMemoryDatabase(databaseName: "p3MessageService")
             .Options;
 
@@ -83,7 +94,8 @@ namespace Service.Tests
                 context.Database.EnsureCreated();
 
                 Repo r = new Repo(context, new NullLogger<Repo>());
-                Logic logic = new Logic(r, new NullLogger<Repo>());
+                Mapper map = new Mapper();
+                Logic logic = new Logic(r, map, new NullLogger<Repo>());
                 var message = new Message
                 {
                     MessageID = Guid.NewGuid(),
@@ -106,7 +118,7 @@ namespace Service.Tests
         [Fact]
         public async void TestGetRecipientListById()
         {
-            var options = new DbContextOptionsBuilder<LeagueContext>()
+            var options = new DbContextOptionsBuilder<MessageContext>()
             .UseInMemoryDatabase(databaseName: "p3MessageService")
             .Options;
 
@@ -116,7 +128,8 @@ namespace Service.Tests
                 context.Database.EnsureCreated();
 
                 Repo r = new Repo(context, new NullLogger<Repo>());
-                Logic logic = new Logic(r, new NullLogger<Repo>());
+                Mapper map = new Mapper();
+                Logic logic = new Logic(r, map, new NullLogger<Repo>());
                 var recipientList = new RecipientList
                 {
                     RecipientListID = Guid.NewGuid(),
@@ -135,7 +148,7 @@ namespace Service.Tests
         [Fact]
         public async void TestGetRecipientLists()
         {
-            var options = new DbContextOptionsBuilder<LeagueContext>()
+            var options = new DbContextOptionsBuilder<MessageContext>()
             .UseInMemoryDatabase(databaseName: "p3MessageService")
             .Options;
 
@@ -145,7 +158,8 @@ namespace Service.Tests
                 context.Database.EnsureCreated();
 
                 Repo r = new Repo(context, new NullLogger<Repo>());
-                Logic logic = new Logic(r, new NullLogger<Repo>());
+                Mapper map = new Mapper();
+                Logic logic = new Logic(r, map, new NullLogger<Repo>());
                 var recipientList = new RecipientList
                 {
                     RecipientListID = Guid.NewGuid(),
@@ -162,9 +176,9 @@ namespace Service.Tests
         }
 
         [Fact]
-        public async void TestBuildRecipientList()
+        public async void TestBuildRecipientLists()
         {
-            var options = new DbContextOptionsBuilder<LeagueContext>()
+            var options = new DbContextOptionsBuilder<MessageContext>()
             .UseInMemoryDatabase(databaseName: "p3MessageService")
             .Options;
 
@@ -174,18 +188,17 @@ namespace Service.Tests
                 context.Database.EnsureCreated();
 
                 Repo r = new Repo(context, new NullLogger<Repo>());
-                Logic logic = new Logic(r, new NullLogger<Repo>());
+                Mapper map = new Mapper();
+                Logic logic = new Logic(r, map, new NullLogger<Repo>());
                 var recipientList = new RecipientList
                 {
                     RecipientListID = Guid.NewGuid(),
                     RecipientID = "56789"
                 };
 
-                r.RecipientLists.Add(recipientList);
-                await r.CommitSave();
 
-                var buildRecipientList = await logic.BuildRecipientList(recipientList.RecipientListID, recipientList.RecipientID);
-                Assert.NotNull(buildRecipientList);
+                var buildRecipientLists = await logic.BuildRecipientList(recipientList.RecipientListID, recipientList.RecipientID);
+                Assert.NotNull(buildRecipientLists);
 
             }
         }
@@ -193,7 +206,7 @@ namespace Service.Tests
         [Fact]
         public async void TestBuildRecipientList()
         {
-            var options = new DbContextOptionsBuilder<LeagueContext>()
+            var options = new DbContextOptionsBuilder<MessageContext>()
             .UseInMemoryDatabase(databaseName: "p3MessageService")
             .Options;
 
@@ -203,17 +216,17 @@ namespace Service.Tests
                 context.Database.EnsureCreated();
 
                 Repo r = new Repo(context, new NullLogger<Repo>());
-                Logic logic = new Logic(r, new NullLogger<Repo>());
+                Mapper map = new Mapper();
+                Logic logic = new Logic(r, map, new NullLogger<Repo>());
                 var recipientList = new RecipientList
                 {
                     RecipientListID = Guid.NewGuid(),
                     RecipientID = "56789"
                 };
 
-                r.RecipientLists.Add(recipientList);
-                await r.CommitSave();
+           
 
-                var buildRecipientList = await logic.BuildRecipientList(RecipientList);
+                var buildRecipientList = await logic.BuildRecipientList(recipientList);
                 Assert.NotNull(buildRecipientList);
 
             }
@@ -222,7 +235,7 @@ namespace Service.Tests
         [Fact]
         public async void TestCreateNewMessage()
         {
-            var options = new DbContextOptionsBuilder<LeagueContext>()
+            var options = new DbContextOptionsBuilder<MessageContext>()
             .UseInMemoryDatabase(databaseName: "p3MessageService")
             .Options;
 
@@ -232,14 +245,15 @@ namespace Service.Tests
                 context.Database.EnsureCreated();
 
                 Repo r = new Repo(context, new NullLogger<Repo>());
-                Logic logic = new Logic(r, new NullLogger<Repo>());
+                Mapper map = new Mapper();
+                Logic logic = new Logic(r, map, new NullLogger<Repo>());
 
                 var newMessageDto = new NewMessageDto
                 {
                     SenderID = "38675634",
-                    RecipientList = List<string>,
+                    RecipientList = new List<string>(),
                     MessageText = "Hello I am a message"
-                }
+                };
 
                 var message = new Message
                 {
@@ -265,7 +279,7 @@ namespace Service.Tests
         [Fact]
         public async void TestGetMessagePool()
         {
-            var options = new DbContextOptionsBuilder<LeagueContext>()
+            var options = new DbContextOptionsBuilder<MessageContext>()
             .UseInMemoryDatabase(databaseName: "p3MessageService")
             .Options;
 
@@ -275,14 +289,15 @@ namespace Service.Tests
                 context.Database.EnsureCreated();
 
                 Repo r = new Repo(context, new NullLogger<Repo>());
-                Logic logic = new Logic(r, new NullLogger<Repo>());
+                Mapper map = new Mapper();
+                Logic logic = new Logic(r, map, new NullLogger<Repo>());
 
                 var newMessageDto = new NewMessageDto
                 {
                     SenderID = "2345654",
-                    RecipientList = List<string>,
+                    RecipientList = new List<string>(),
                     MessageText = "Hello I am a message!"
-                }
+                };
 
                 var message = new Message
                 {
@@ -316,7 +331,8 @@ namespace Service.Tests
                 context.Database.EnsureCreated();
 
                 Repo r = new Repo(context, new NullLogger<Repo>());
-                Logic logic = new Logic(r, new NullLogger<Repo>());
+                Mapper map = new Mapper();
+                Logic logic = new Logic(r, map, new NullLogger<Repo>());
 
                 var carpoolingDto = new CarpoolingDto
                 {
@@ -337,9 +353,43 @@ namespace Service.Tests
                 r.Messages.Add(message);
                 await r.CommitSave();
 
-                var sendCarpool = await logic.SendCarpool(message.RecipientListID);
+                var sendCarpool = await logic.SendCarpool(carpoolingDto);
                 Assert.Equal(message.SenderID, carpoolingDto.SenderID);
                 Assert.Equal(message.MessageText, carpoolingDto.MessageText);   
+
+            }
+        }
+
+        [Fact]
+        public async void TestSendMessage()
+        {
+            var options = new DbContextOptionsBuilder<MessageContext>()
+            .UseInMemoryDatabase(databaseName: "p3MessageService")
+            .Options;
+
+            using (var context = new MessageContext(options))
+            {
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+
+                Repo r = new Repo(context, new NullLogger<Repo>());
+                Mapper map = new Mapper();
+                Logic logic = new Logic(r, map, new NullLogger<Repo>());
+
+             
+
+                var message = new Message
+                {
+                    MessageID = Guid.NewGuid(),
+                    SenderID = "123422223",
+                    RecipientListID = Guid.NewGuid(),
+                    SentDate = DateTime.Now,
+                    MessageText = "I am a test!!"
+                };
+
+
+                var sendMessage = await logic.SendMessage(message);
+                Assert.NotNull(sendMessage);
 
             }
         }
@@ -357,7 +407,8 @@ namespace Service.Tests
                 context.Database.EnsureCreated();
 
                 Repo r = new Repo(context, new NullLogger<Repo>());
-                Logic logic = new Logic(r, new NullLogger<Repo>());
+                Mapper map = new Mapper();
+                Logic logic = new Logic(r, map, new NullLogger<Repo>());
 
                 var replyDto = new ReplyDto
                 {
@@ -369,57 +420,22 @@ namespace Service.Tests
                 var message = new Message
                 {
                     MessageID = Guid.NewGuid(),
-                    SenderID = carpoolingDto.SenderID,
+                    SenderID = replyDto.SenderID,
                     RecipientListID = Guid.NewGuid(),
                     SentDate = DateTime.Now,
-                    MessageText = carpoolingDto.MessageText
+                    MessageText = replyDto.MessageText
                 };
 
                 r.Messages.Add(message);
                 await r.CommitSave();
 
-                var sendreply = await logic.SendReply(message.RecipientListID);
+                var sendreply = await logic.SendReply(replyDto);
                 Assert.Equal(message.SenderID, replyDto.SenderID);
                 Assert.Equal(message.MessageText, replyDto.MessageText);
 
             }
         }
 
-
-        [Fact]
-        public async void TestSendMessage()
-        {
-            var options = new DbContextOptionsBuilder<MessageContext>()
-            .UseInMemoryDatabase(databaseName: "p3MessageService")
-            .Options;
-
-            using (var context = new MessageContext(options))
-            {
-                context.Database.EnsureDeleted();
-                context.Database.EnsureCreated();
-
-                Repo r = new Repo(context, new NullLogger<Repo>());
-                Logic logic = new Logic(r, new NullLogger<Repo>());
-
-
-                var message = new Message
-                {
-                    MessageID = Guid.NewGuid(),
-                    SenderID = "3478273",
-                    RecipientListID = Guid.NewGuid(),
-                    SentDate = DateTime.Now,
-                    MessageText = "Hi I am a test message"
-                };
-
-                r.Messages.Add(message);
-                await r.CommitSave();
-
-                var sendMessage = await logic.SendMessage(message);
-                Assert.NotNull(sendMessage);
-               
-
-            }
-        }
 
         [Fact]
         public async void TestGetUserInbox()
@@ -434,7 +450,8 @@ namespace Service.Tests
                 context.Database.EnsureCreated();
 
                 Repo r = new Repo(context, new NullLogger<Repo>());
-                Logic logic = new Logic(r, new NullLogger<Repo>());
+                Mapper map = new Mapper();
+                Logic logic = new Logic(r, map, new NullLogger<Repo>());
 
 
                 var userInbox = new UserInbox
@@ -459,7 +476,7 @@ namespace Service.Tests
         public async void TestCreateUserInbox()
         {
             var options = new DbContextOptionsBuilder<MessageContext>()
-            .UseInMemoryDatabase(databaseName: "p3MessageService")
+            .UseInMemoryDatabase(databaseName: "p3Message2Service")
             .Options;
 
             using (var context = new MessageContext(options))
@@ -468,61 +485,25 @@ namespace Service.Tests
                 context.Database.EnsureCreated();
 
                 Repo r = new Repo(context, new NullLogger<Repo>());
-                Logic logic = new Logic(r, new NullLogger<Repo>());
+                Mapper map = new Mapper();
+                Logic logic = new Logic(r, map, new NullLogger<Repo>());
 
 
-                var userInbox = new UserInbox
+                var userInbox2 = new UserInbox
                 {
-                    UserID = "123421",
+                    UserID = "2342328666",
                     MessageID = Guid.NewGuid(),
                     IsRead = false
 
                 };
 
-                r.UserInboxes.Add(userInbox);
-                await r.CommitSave();
 
-                var createUserInbox = await logic.CreateUserInbox(userInbox.UserID, userInbox.MessageID);
-                Assert.NotNull(getUserInbox);
+                var createUserInbox = await logic.CreateUserInbox(userInbox2.UserID, userInbox2.MessageID);
+                Assert.NotNull(createUserInbox);
 
 
             }
         }
-
-        [Fact]
-        public async void TestDeleteMessageFromInbox()
-        {
-            var options = new DbContextOptionsBuilder<MessageContext>()
-            .UseInMemoryDatabase(databaseName: "p3MessageService")
-            .Options;
-
-            using (var context = new MessageContext(options))
-            {
-                context.Database.EnsureDeleted();
-                context.Database.EnsureCreated();
-
-                Repo r = new Repo(context, new NullLogger<Repo>());
-                Logic logic = new Logic(r, new NullLogger<Repo>());
-
-
-                var userInbox = new UserInbox
-                {
-                    UserID = "123421123",
-                    MessageID = Guid.NewGuid(),
-                    IsRead = false
-
-                };
-
-                r.UserInboxes.Add(userInbox);
-                await r.CommitSave();
-
-                var deleteMessageFromInbox = await logic.DeleteMessageFromInbox(userInbox.UserID, userInbox.MessageID);
-                Assert.NotNull(getUserInbox);
-
-
-            }
-        }
-
 
 
     }
