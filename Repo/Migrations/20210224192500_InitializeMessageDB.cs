@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Repository.Migrations
 {
-    public partial class testing : Migration
+    public partial class InitializeMessageDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +12,7 @@ namespace Repository.Migrations
                 columns: table => new
                 {
                     MessageID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SenderID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SenderID = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RecipientListID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     MessageText = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -27,7 +27,7 @@ namespace Repository.Migrations
                 columns: table => new
                 {
                     RecipientListID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RecipientID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    RecipientID = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -38,7 +38,7 @@ namespace Repository.Migrations
                 name: "UserInboxes",
                 columns: table => new
                 {
-                    UserID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     MessageID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IsRead = table.Column<bool>(type: "bit", nullable: false)
                 },
