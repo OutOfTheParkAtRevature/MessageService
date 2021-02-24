@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Model.DataTransfer;
@@ -13,6 +14,7 @@ namespace MessageService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin, League Manager, Head Coach, Assistant Coach, Parent, Player")]
     public class MessageController : ControllerBase
     {
         private readonly Logic _logic;
@@ -27,24 +29,28 @@ namespace MessageService.Controllers
          
         }
         [HttpGet]
+        [Authorize]
         public async Task<IEnumerable<Message>> GetMessages()
         {
             return await _logic.GetMessages();
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<Message>> GetMessage(Guid id)
         {
             return await _logic.GetMessageById(id);
         }
 
         [HttpGet("Sender/{id}")]
+        [Authorize]
         public async Task<IEnumerable<Message>> GetMessagesBySenderById(string id)
         {
             return await _logic.GetMessagesBySenderById(id);
         }
 
         [HttpPost("SendNew")]
+        [Authorize]
         public async Task<ActionResult<Message>> SendNewMessage(NewMessageDto newMessageDto)
         {
             Message message = await _logic.CreateNewMessage(newMessageDto);
@@ -57,6 +63,7 @@ namespace MessageService.Controllers
             return sent;
         }
         [HttpPost("Send")]
+        [Authorize]
         public async Task<ActionResult<Message>> SendMessage(Message message)
         {
             Message sent = await _logic.SendMessage(message);
@@ -68,6 +75,7 @@ namespace MessageService.Controllers
             return sent;
         }
         [HttpPost("Send/Carpool")]
+        [Authorize]
         public async Task<ActionResult<Message>> SendCarpool(CarpoolingDto carpoolDto)
         {
             Message sent = await _logic.SendCarpool(carpoolDto);
@@ -80,6 +88,7 @@ namespace MessageService.Controllers
         }
 
         [HttpPost("Send/Reply")]
+        [Authorize]
         public async Task<ActionResult<Message>> SendReply(ReplyDto replyDto)
         {
             Message sent = await _logic.SendReply(replyDto);
@@ -92,6 +101,7 @@ namespace MessageService.Controllers
         }
 
         [HttpPost("RecipientLists/create")]
+        [Authorize]
         public async Task<ActionResult<RecipientList>> CreateRecipientList([FromBody] CreateCarpoolDto createCarpool)
         {
             return Ok(await _logic.BuildRecipientList(createCarpool.CarpoolID, createCarpool.UserID));
@@ -99,18 +109,21 @@ namespace MessageService.Controllers
 
 
         [HttpGet("RecipientLists")]
+        [Authorize]
         public async Task<IEnumerable<RecipientList>> GetRecipientLists()
         {
             return await _logic.GetRecipientLists();
         }
 
         [HttpGet("RecipientLists/{id}")]
+        [Authorize]
         public async Task<ActionResult<RecipientList>> GetRecipientList(Guid id)
         {
             return await _logic.GetRecipientListById(id);
         }
 
         [HttpGet("Inboxes/{id}")]
+        [Authorize]
         public async Task<IEnumerable<UserInbox>> GetUserInboxes(string id)
         {
             return await _logic.GetUserInbox(id);
@@ -118,7 +131,7 @@ namespace MessageService.Controllers
 
         [HttpPost]
         [Route("SendEmail")]
-        //[Authorize]
+        [Authorize]
         public async Task<ActionResult> SendEmailToUser(EmailMessage message)
         {
             await _emailSender.SendEmailAsync(message);
@@ -127,7 +140,7 @@ namespace MessageService.Controllers
 
 
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         public async Task<ActionResult> SendEmailToUserWithAttachment(EmailMessage eMessage)
         {
             var files = Request.Form.Files.Any() ? Request.Form.Files : new FormFileCollection();

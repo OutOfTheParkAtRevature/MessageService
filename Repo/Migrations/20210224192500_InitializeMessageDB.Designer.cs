@@ -10,8 +10,8 @@ using Repository;
 namespace Repository.Migrations
 {
     [DbContext(typeof(MessageContext))]
-    [Migration("20210211203536_testing")]
-    partial class testing
+    [Migration("20210224192500_InitializeMessageDB")]
+    partial class InitializeMessageDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,8 +33,8 @@ namespace Repository.Migrations
                     b.Property<Guid>("RecipientListID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("SenderID")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("SenderID")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("SentDate")
                         .HasColumnType("datetime2");
@@ -49,8 +49,8 @@ namespace Repository.Migrations
                     b.Property<Guid>("RecipientListID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("RecipientID")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("RecipientID")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("RecipientListID", "RecipientID");
 
@@ -59,8 +59,8 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Models.UserInbox", b =>
                 {
-                    b.Property<Guid>("UserID")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<Guid>("MessageID")
                         .HasColumnType("uniqueidentifier");

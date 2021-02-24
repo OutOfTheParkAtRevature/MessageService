@@ -31,8 +31,8 @@ namespace Repository.Migrations
                     b.Property<Guid>("RecipientListID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("SenderID")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("SenderID")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("SentDate")
                         .HasColumnType("datetime2");
@@ -47,8 +47,8 @@ namespace Repository.Migrations
                     b.Property<Guid>("RecipientListID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("RecipientID")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("RecipientID")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("RecipientListID", "RecipientID");
 
@@ -57,8 +57,8 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Models.UserInbox", b =>
                 {
-                    b.Property<Guid>("UserID")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<Guid>("MessageID")
                         .HasColumnType("uniqueidentifier");

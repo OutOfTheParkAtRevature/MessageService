@@ -41,7 +41,7 @@ namespace MessageService
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MessageService", Version = "v1" });
             });
 
-            services.AddDbContext<MessageContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LocalDB")));
+            services.AddDbContext<MessageContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AzureDB")));
             
             var identityUrl = Configuration.GetValue<string>("IdentityUrl");
             var jwtSettings = Configuration.GetSection("JwtSettings");
