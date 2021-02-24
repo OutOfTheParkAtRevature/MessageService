@@ -10,7 +10,7 @@ using Repository;
 namespace Repository.Migrations
 {
     [DbContext(typeof(MessageContext))]
-    [Migration("20210224192500_InitializeMessageDB")]
+    [Migration("20210224194533_InitializeMessageDB")]
     partial class InitializeMessageDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
