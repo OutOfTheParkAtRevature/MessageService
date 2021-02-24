@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Models
 {
@@ -17,7 +13,7 @@ namespace Models
         public Guid MessageID { get; set; }
         [DisplayName("Sender ID")]
         [ForeignKey("UserID")]
-        public Guid SenderID { get; set; }
+        public string SenderID { get; set; }
         [DisplayName("Recipient List ID")]
         [ForeignKey("UserID")]
         public Guid RecipientListID { get; set; }

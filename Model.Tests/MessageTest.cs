@@ -33,7 +33,7 @@ namespace Model.Tests
             var message = new Message()
             {
                 MessageID = Guid.NewGuid(),
-                SenderID = Guid.NewGuid(),
+                SenderID = Guid.NewGuid().ToString(),
                 RecipientListID = Guid.NewGuid(),
                 SentDate = DateTime.Now,
                 MessageText = "This is a test message"

@@ -1,39 +1,90 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Models;
 
-namespace Repo
+namespace Repository
 {
     public class Repo
     {
-        private readonly ProgContext _progContext;
+        private readonly MessageContext _messageContext;
         private readonly ILogger _logger;
-        public DbSet<Message> messages;
+        public DbSet<Message> Messages;
+        public DbSet<RecipientList> RecipientLists;
+        public DbSet<UserInbox> UserInboxes;
 
-        public Repo(ProgContext progContext, ILogger<Repo> logger)
+        public Repo() { }
+        public Repo(MessageContext messageContext, ILogger<Repo> logger)
         {
-            _progContext = progContext;
+            _messageContext = messageContext;
             _logger = logger;
-            this.messages = _progContext.Messages;
-
+            this.Messages = _messageContext.Messages;
+            this.RecipientLists = _messageContext.RecipientLists;
+            this.UserInboxes = _messageContext.UserInboxes;
         }
 
-        // Access SaveChanges from Logic class
+        /// <summary>
+        /// Saves changes to the database
+        /// </summary>
+        /// <returns></returns>
         public async Task CommitSave()
         {
-            await _progContext.SaveChangesAsync();
+            await _messageContext.SaveChangesAsync();
         }
-
+        /// <summary>
+        /// returns a message by the message id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<Message> GetMessageById(Guid id)
         {
-            return await messages.FindAsync(id);
+            return await Messages.FindAsync(id);
         }
+        /// <summary>
+        /// returns a list of all messages
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<Message>> GetMessages()
         {
-            return await messages.ToListAsync();
+            return await Messages.ToListAsync();
+        }
+        /// <summary>
+        /// returns a list of all userInboxs for the userID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<UserInbox>> GetUserInbox(string id)
+        {
+            return await UserInboxes.Where(x => x.UserID == id).ToListAsync();
+        }
+        /// <summary>
+        /// returns a list of all messages by the senderID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<Message>> GetMessagesBySenderById(string id)
+        {
+            return await Messages.Where(x => x.SenderID == id).ToListAsync();
+        }
+        /// <summary>
+        ///  returns the recipientList by the recipientListID
+        /// </summary>
+        /// <param name="listId"></param>
+        /// <returns></returns>
+        public async Task<RecipientList> GetRecipientListById(Guid listId)
+        {
+            return await RecipientLists.SingleOrDefaultAsync(x => x.RecipientListID == listId);
+        }
+        /// <summary>
+        /// returns all recipientLists
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<RecipientList>> GetRecipientLists()
+        {
+            return await RecipientLists.ToListAsync();
         }
     }
 }
