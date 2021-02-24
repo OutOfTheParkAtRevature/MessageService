@@ -1,13 +1,16 @@
 # MessageService
 ## Description
-Messaging Microservice API Repo
+Allows users (Admin, League Manager, Head Coach, Assistant Coach, Parent, Player) to send a message to another user. Users have access to an inbox, and they can create a message, send a message, send a carpooling message, send an reply to an email, and even include attachments in their emails.
 
 ## Functionality
-* This is something this api can do
-  
-## To-Do List
-* This is something that will be implemented in the future
+* Inbox
+* Create Messages
+* Send message
+* Message to schedule carpooling for parents
+* Send email and attachments
 
 ## Links
 * Frontend: https://github.com/OutOfTheParkAtRevature/Frontend
+* Backend: https://github.com/OutOfTheParkAtRevature/MessageService
+* Manifest for Kubernetes: https://github.com/OutOfTheParkAtRevature/MessageService/tree/main/manifests
 
