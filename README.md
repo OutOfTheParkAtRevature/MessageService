@@ -8,7 +8,6 @@ Allows users (Admin, League Manager, Head Coach, Assistant Coach, Parent, Player
 * Send message
 * Message to schedule carpooling for parents
 * Send email and attachments
-
 ## Getting Started
 1. Clone this repo to your local machine:
 ```bash
@@ -35,4 +34,3 @@ This Repository is part of an application designed with a Microservice Architect
 * Season Service: https://github.com/OutOfTheParkAtRevature/SeasonService
 * Stat Service: https://github.com/OutOfTheParkAtRevature/StatService
 * User Service: https://github.com/OutOfTheParkAtRevature/UserService
-
