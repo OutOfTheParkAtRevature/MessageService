@@ -14,7 +14,6 @@ namespace MessageService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin, League Manager, Head Coach, Assistant Coach, Parent, Player")]
     public class MessageController : ControllerBase
     {
         private readonly Logic _logic;
@@ -131,7 +130,6 @@ namespace MessageService.Controllers
 
         [HttpPost]
         [Route("SendEmail")]
-        [Authorize]
         public async Task<ActionResult> SendEmailToUser(EmailMessage message)
         {
             await _emailSender.SendEmailAsync(message);
