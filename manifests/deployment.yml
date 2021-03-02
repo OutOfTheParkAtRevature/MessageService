@@ -19,13 +19,11 @@ spec:
     spec:
       containers:
         - name: message-service
-          image: outofthepark15226.azurecr.io/message-service
+          image: outoftheparkacr.azurecr.io/message-service
           imagePullPolicy: Always
           ports:
             - containerPort: 80
               name: message-http
-            - containerPort: 443
-              name: message-https
 ---
 apiVersion: v1
 kind: Service
@@ -37,10 +35,6 @@ spec:
       protocol: TCP
       port: 80
       targetPort: 80
-    - name: https
-      protocol: TCP
-      port: 443
-      targetPort: 443
   selector:
     app: message-service
   type: ClusterIP
