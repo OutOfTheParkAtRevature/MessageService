@@ -14,6 +14,7 @@ namespace MessageService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class MessageController : ControllerBase
     {
         private readonly Logic _logic;
