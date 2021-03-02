@@ -23,7 +23,7 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 80
-              name: message-http
+              name: message-http 
 ---
 apiVersion: v1
 kind: Service
