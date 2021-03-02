@@ -24,6 +24,8 @@ spec:
           ports:
             - containerPort: 80
               name: message-http
+            - containerPort: 443
+              name: message-https
 ---
 apiVersion: v1
 kind: Service
@@ -31,26 +33,14 @@ metadata:
   name: message-service-deployment
 spec:
   ports:
-    - name: message-service
+    - name: http
+      protocol: TCP
       port: 80
-      targetPort: message-http
+      targetPort: 80
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 443
   selector:
     app: message-service
-  type: LoadBalancer
----
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
-metadata:
-  name: message-service-ingress
-  annotations:
-    kubernetes.io/ingress.class: addon-http-application-routing
-spec:
-  rules:
-  - host: message-service.1c50b018f5784721b39b.eastus.aksapp.io
-    http:
-      paths:
-      - pathType: Prefix
-        backend:
-          serviceName: message-service-deployment
-          servicePort: 80
-        path: /message(/|$)(.*)
+  type: ClusterIP
