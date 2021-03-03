@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Repository.Migrations
 {
-    public partial class InitializeMessageDB : Migration
+    public partial class messagemigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
